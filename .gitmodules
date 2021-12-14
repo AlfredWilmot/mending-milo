@@ -1,0 +1,4 @@
+[submodule "ros-rl/ros2learn"]
+	path = ros-rl/ros2learn
+	url = https://github.com/AcutronicRobotics/ros2learn.git
+	branch = dashing
