@@ -10,11 +10,9 @@ Here I will outline my journey of learning how to improve the portability of my 
     4) Installing and managing [different version of Python3](https://www.itsupportwale.com/blog/how-to-upgrade-to-python-3-7-on-ubuntu-18-10/)
     5) Installing and using [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) 
 
-- Dependency issues
-    1) Gazebo git repo must be in the `dashing` branch (otherwise clocon won't build)
-    2) Master branch of OpenAI-gym git repo is only compatible with >=Python3.7 
 
-
+ToDo:
+- make a script that automates the installation of python venv stuff
 
 <sub><sup>
 Tired of sitting around mending broken code?
