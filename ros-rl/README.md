@@ -7,6 +7,9 @@
         - `git submodule add -b dashing https://github.com/AcutronicRobotics/ros2learn.git`
         - `git submodule update --remote --recursive` 
     2) setup python venv and wrapper []
+        - `pip install virtualenv`
+        - `virtualenv -p /usr/bin/python3.7 venv-ros2-rl`
+        - `pip install virtualenvwrapper`
     3) build the docker image following these instructions, using a python3.7 venv []
 
 - Dependency issues
