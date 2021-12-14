@@ -5,9 +5,10 @@ Here I will outline my journey of learning how to improve the portability of my 
 
 - Notes
     1) Installation instructions for [ROS2 Dashing](https://docs.ros.org/en/dashing/Installation/Ubuntu-Install-Debians.html)
-    2) Python [venvs and venvwrappers](https://realpython.com/python-virtual-environments-a-primer/)
+    2) Setting-up [Python venvs and venvwrappers](https://realpython.com/python-virtual-environments-a-primer/)
     3) Supplement documentation with gifs using [Peek](https://vitux.com/install-peek-animated-gif-recorder-on-ubuntu/)
-    4) Useful [guide](https://www.itsupportwale.com/blog/how-to-upgrade-to-python-3-7-on-ubuntu-18-10/) for installing and manageing different version of Python3
+    4) Installing and managing [different version of Python3](https://www.itsupportwale.com/blog/how-to-upgrade-to-python-3-7-on-ubuntu-18-10/)
+    5) Installing and using [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) 
 
 - Dependency issues
     1) Gazebo git repo must be in the `dashing` branch (otherwise clocon won't build)
