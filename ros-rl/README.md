@@ -15,3 +15,22 @@
 - Dependency issues
     1) Gazebo git repo must be in the `dashing` branch (otherwise clocon won't build)
     2) Master branch of OpenAI-gym git repo is only compatible with >=Python3.7 
+
+## A test
+
+- [install docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) on Ubuntu 18.04 
+- pull the latest gym-gazebo2 docker image: \
+`docker pull acutronicrobotics/gym-gazebo2:latest`
+- [install gazebo](http://gazebosim.org/tutorials?tut=install_ubuntu#Defaultinstallation:one-liner) on the host system: \
+  `curl -sSL http://get.gazebosim.org | sh`
+- set-up the docker container: \
+    `docker run -it --name gg2 acutronicrobotics/gym-gazebo2:latest`
+- sets-up an instance of this container session in the terminal; can launch several sessions from other terminals once this one is up using: \
+    `docker exec -it gg2 bash`
+- if this container is exited prematurely, and you're simply not ready to let go, just start it again and access via `exec`:
+  - `docker start gg2`
+  - `docker exec -it gg2 bash`
+- to see a list of any actively running containers:
+  - `docker ps`
+- to see a list of all conatainers (running or otherwise):
+  - `docker ps -a`
