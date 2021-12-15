@@ -2,3 +2,7 @@
 	path = ros-rl/ros2learn
 	url = https://github.com/AcutronicRobotics/ros2learn.git
 	branch = dashing
+[submodule "ros-rl/gym-gazebo2"]
+	path = ros-rl/gym-gazebo2
+	url = https://github.com/AcutronicRobotics/gym-gazebo2
+	branch = dashing
