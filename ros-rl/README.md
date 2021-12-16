@@ -34,3 +34,10 @@
   - `docker ps`
 - to see a list of all conatainers (running or otherwise):
   - `docker ps -a`
+
+## Another test
+- with an instance of the `acutronicrobotics/gym-gazebo2:latest` docker container running, follow [these](http://gazebosim.org/tutorials?cat=install&tut=install_ubuntu&ver=9.0) instructions to set-up the latest version of gazebo9 in the container (9.19.0 as of this writing)
+- had to upgrade the `libignition-math2` library to resolve symlink error when running `gzserver`: 
+  - `apt upgrade libignition-math2`
+- if any gazebo-related process doesn't run, make sure there are no gazebo-related processes still running in the container:
+  - `killall gzserver`
