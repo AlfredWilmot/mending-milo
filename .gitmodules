@@ -6,3 +6,6 @@
 	path = ros-rl/gym-gazebo2
 	url = https://github.com/AcutronicRobotics/gym-gazebo2
 	branch = dashing
+[submodule "ros-rl/MARA"]
+	path = ros-rl/MARA
+	url = https://github.com/AcutronicRobotics/MARA.git
