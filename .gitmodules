@@ -9,3 +9,6 @@
 [submodule "ros-rl/MARA"]
 	path = ros-rl/MARA
 	url = https://github.com/AcutronicRobotics/MARA.git
+[submodule "ros-docker/docker-ros-box"]
+	path = ros-docker/docker-ros-box
+	url = https://github.com/pierrekilly/docker-ros-box.git
