@@ -22,10 +22,10 @@ docker run -it --rm \
     ros:abb-egm \
     roscore
 
-# without shared volume (quick sanity checks)
+# run container while giving it access to ethernet ports/ usb devices
 docker run -it --rm \
-    --net ros-net \
     --name master \
+    --privileged -v /dev/bus/usb:/dev/bus/usb \
     ros:abb-egm \
     bash
 
