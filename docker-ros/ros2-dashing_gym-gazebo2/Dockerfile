@@ -1,1 +1,0 @@
-FROM osrf/ros:dashing-desktop

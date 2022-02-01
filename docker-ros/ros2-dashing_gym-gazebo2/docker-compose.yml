@@ -1,0 +1,23 @@
+services:
+
+  gg2:
+    image: rl-toolkit
+    build: ./build/simulation-server/.
+    environment:
+      - DISPLAY=${DISPLAY}
+      - PYTHONPATH=/root/ros2_mara_ws/install/lib/python3.6/site-packages:/opt/ros/dashing/lib/python3.6/site-packages:/root/ros2_mara_ws/install/lib/python3/dist-package
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/tmp/gym-gazebo2 
+    network_mode: host
+
+  gzclient:
+    image: rl-viz
+    build: ./build/visualization-client/.
+    environment:
+      - DISPLAY=${DISPLAY}
+      - GAZEBO_MASTER_URI="http://172.18.0.2:11345" 
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - .:/tmp/gym-gazebo2 
+    network_mode: host
