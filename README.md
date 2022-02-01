@@ -1,39 +1,37 @@
-# mending-milo
-Here I will outline my journey of learning how to improve the portability of my code
+# Mending Milo
 
-### Use Docker to run ROS distros
-1) Install [docker engine](https://docs.docker.com/engine/install/ubuntu/)
-   - Update pkg index: 
-     - `sudo apt-get update` 
-   - Install prerequisite pkgs: 
-     - `sudo apt-get install ca-certificates curl gnupg lsb-release`
-   - Add the official Docker GPG key: 
-     - `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg`
-   - Install docker engine: 
-     - `sudo apt-get update` 
-     - `sudo apt-get install docker*`
-   - Make a docker group and add myself to it:
-     - `sudo groupadd docker`
-     - `sudo usermod -aG docker $USER`
-     - `newgroup docker`
-   - Had to run the following cmd:
-     - `sudo chmod 666 /var/run/docker.sock`
+This repo is designed to aid with exploring DevOps tools and practices such as test/build/deploy automation and CI/CD. Documentation and tutorials will be made to collate key information so that projects here can be replicated and redeployed as easily as possible.
 
-### Task (2)
-set-up and run the [ros2learn docker container](https://github.com/AcutronicRobotics/ros2learn/tree/dashing/docker)
-
-- Notes
-    1) Installation instructions for [ROS2 Dashing](https://docs.ros.org/en/dashing/Installation/Ubuntu-Install-Debians.html)
-    2) Setting-up [Python venvs and venvwrappers](https://realpython.com/python-virtual-environments-a-primer/)
-    3) Supplement documentation with gifs using [Peek](https://vitux.com/install-peek-animated-gif-recorder-on-ubuntu/)
-    4) Installing and managing [different version of Python3](https://www.itsupportwale.com/blog/how-to-upgrade-to-python-3-7-on-ubuntu-18-10/)
-    5) Installing and using [Docker](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-on-ubuntu-18-04) 
+**If you run into any problems while following these guides, please raise them as an issue on this repo so that I can investigate and attempte to resolve them.**
+___
 
 
-ToDo:
-- make a script that automates the installation of python venv stuff
+## Preparing the docker workstation
+For my applications I am using Ubuntu 18.04 on the `host machine` (i.e. where docker is installed), although there is no particular reason for this choice as my goal is to have these set-up procedures as agnostic of the exact Linux distro used as is reasonably possible.
 
+
+|Installing Ubuntu on modern DELL computers
+|-
+(without getting locked out of your OS by the BIOS)
+
+
+This took me a while to get right, but if you follow [this](https://www.youtube.com/watch?v=n8VwTYU0Mec) Tutorial you shouldn't run into this sort of issue.
+Key things to consider:
+- prepare a `bootable USB` (Ubuntu 20.04 for long-term support, but this works for 18.04 as well)
+- configure the BIOS to run `"Data Wipe"` (wipe on next boot), and clear the boot sequence in the BIOS so that only the bootable USB is selected.
+- also install `"third-party-software"` when installing Ubunutu via the bootable USB.
+
+|Minimum installation on host machine
+|-
+Once Ubunut is installed, run the `fresh-install-setup.sh` script as root. This script installs the minimum dependencies (as well as some software that I find generally useful to keep on the host machine)Once this is finished, you're ready to go! 
+
+|Additional installation for GUI-enabled docker containers
+|-
+Run the `setup-cuda-drivers-ubuntu-18-04.sh` script and do not enroll new key if prompted. This is necessary if you're using an nvidia GPU'
+
+
+## Misc
 <sub><sup>
 Tired of sitting around mending broken code?
-Have you tried going to the gym and [rebuilding milo](https://www.goodreads.com/en/book/show/54303312-rebuilding-milo) instead? 
+Have you considered going to the gym and [rebuilding milo](https://www.goodreads.com/en/book/show/54303312-rebuilding-milo) instead? 
 </sup></sub>
