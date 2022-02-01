@@ -53,10 +53,16 @@ sudo systemctl enable containerd.service
 
 
 
-### install docker-compose
+### install docker-compose (https://phoenixnap.com/kb/install-docker-compose-on-ubuntu-20-04)
 
 # get latest stable release
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose]
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+# make the downloaded binray executable
+sudo chmod +x /usr/local/bin/docker-compose
 
 # install (previous step may be redundant)
-sudo apt-get install docker-compose
+sudo apt-get install -y docker-compose
+
+# verify installation
+sudo docker–compose --version
