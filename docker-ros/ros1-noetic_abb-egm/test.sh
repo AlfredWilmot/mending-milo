@@ -28,8 +28,7 @@ docker run -it --rm \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
     -p 6511:6511/udp \
     -p 80:80/tcp \
-    ros:abb-egm \
-    bash
+    ros:abb-egm
 
 # with shared volume (for development)
 docker run -it --rm \
