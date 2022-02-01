@@ -23,10 +23,12 @@ Key things to consider:
 
 |Minimum installation on host machine
 |-
+
 Once Ubunut is installed, run the `fresh-install-setup.sh` script as root. This script installs the minimum dependencies (as well as some software that I find generally useful to keep on the host machine)Once this is finished, you're ready to go! 
 
 |Additional installation for GUI-enabled docker containers
 |-
+
 Run the `setup-cuda-drivers-ubuntu-18-04.sh` script and do not enroll new key if prompted. This is necessary if you're using an nvidia GPU'
 
 
