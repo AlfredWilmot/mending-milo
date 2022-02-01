@@ -26,6 +26,8 @@ docker run -it --rm \
 docker run -it --rm \
     --name master \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
+    -p 6511:6511/udp \
+    -p 80:80/tcp \
     ros:abb-egm \
     bash
 
@@ -48,4 +50,8 @@ rocker --x11 --nvidia \
 # inspecting a ros container (example)
 docker exec -it master bash
 source /ros_entrypoint.sh
+
+
+# check IP addresses on host computer (includes that of any active docker containers)
+hostname -I
 
