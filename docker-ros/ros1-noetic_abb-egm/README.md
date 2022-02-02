@@ -21,8 +21,7 @@ docker build -t abb-egm .
 </table>
 
 
-- The host machine needs to connect to the ABB controller via an Ethernet connection, and some connection parameters need to be configured on the robot.\
-The ROS application assumes that the `robot_ip` is `192.168.125.1`\
+- The host machine needs to connect to the ABB controller via an Ethernet connection, and some connection parameters need to be configured on the robot. The ROS application assumes that the `robot_ip` is `192.168.125.1`\
 To use the RWS and EGM features on your ABB with your ROS machine, make sure that the EGM port is set to 6511 (default used by ROS application), and that the IP address that the EGM packets are sent to are that of your host machine. 
 
 <table>
@@ -48,15 +47,12 @@ nmcli -p device show
 </table>
 
 
-- Once the docker image is either built or pulled, the container is ready to be deployed.
+- Once the docker image is either built or pulled, the container is ready to be deployed. This first container will be for running the *ex2_rws_and_egm_6axis_robot.launch* example script 
 
 <table>
 <tr>
-<td> Deploy a docker container called "master" using the abb-egm image. \
-This container runs the main rws-egm script from the abb-driver github repo, and connects to the ABB robot via the Ethernet port. The RWS and EGM packets can be investigated by checking the relevant rostopics.
+<td> Deploy a docker container called "master" using the abb-egm image. This container runs the main rws-egm script from the abb-driver github repo, and connects to the ABB robot via the Ethernet port. The RWS and EGM packets can be investigated by checking the relevant rostopics.
 </td>
-</tr>
-<tr>
 <td>
 
 ```bash:
@@ -65,20 +61,14 @@ docker run -it --rm \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
     -p 6511:6511/udp \
     -p 80:80/tcp \
-    ros:abb-egm 
+    abb-egm 
 ```
 
 </td>
 </tr>
-</table>
-
-
-<table>
 <tr>
 <td> Make sure the "master" container is running, open another terminal and open-up a terminal instance of the container to investigate the rostopics of interest.
 </td>
-</tr>
-<tr>
 <td>
 
 ```bash:
@@ -88,10 +78,8 @@ docker exec -it master bash
 </td>
 </tr>
 <tr>
-<td> Once inside the container, type for followin command into the terminal to make sure to setup the environmental variable that ROS needs to work in the particular terminal instance you just opened up.
+<td> Once inside the container, make sure to setup the environmental variables that ROS needs to work in the particular terminal instance you just opened up.
 </td>
-</tr>
-<tr>
 <td>
 
 ```bash:
@@ -101,5 +89,25 @@ source /ros_entrypoint.sh
 </td>
 </tr>
 
+<tr>
+<td> The topic of interest can be inspected by filtering for particular types of topics, such as egm.
+</td>
+<td>
 
+```bash:
+rostopic list | grep egm
+```
+</td>
+</tr>
+
+<tr>
+<td> Data from a particular topic can be echo'd to the terminal. When typing out the topic you want to see you can press the tab button twice to autocomplete if there is only one possible option, or otherwise display the available options if there is more than one. This is a typical feature of terminal interfaces, and applies to Unix command-line terminals in general.
+</td>
+<td>
+
+```bash:
+rostopic echo /egm<tab><tab>
+```
+</td>
+</tr>
 </table>
