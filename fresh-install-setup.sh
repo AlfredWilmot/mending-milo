@@ -66,3 +66,7 @@ sudo apt-get install -y docker-compose
 
 # verify installation
 sudo docker–compose --version
+
+
+### give docker containers (clients) access the X11 display on the host machine
+xhost +

@@ -51,3 +51,6 @@ apt-get update && apt-get install -y ros-dashing-gazebo-ros-pkgs
 
 # deep cleanse!!
 docker system prune -a
+
+# give docker containers (clients) access the X11 display on the host machine
+xhost +
