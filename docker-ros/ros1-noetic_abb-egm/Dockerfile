@@ -34,6 +34,14 @@ RUN . /opt/ros/noetic/setup.sh && \
 
 WORKDIR /home/catkin_ws
 
+# -------------------------- #
+# Installing additional deps #
+
+# run rqt when a rosmaster is active, and select the joint-trajectory-controller plugin to use this
+RUN sudo apt-get install ros-noetic-rqt-joint-trajectory-controller -y
+
+# destroy the configuration files so these can be developed by the host and mounted to the container
+RUN rm -rf /home/catkin_ws/src/abb_robot_driver/*
 
 # launch the rws/egm test script with the given robot IP when running this images as a container (unless bash is specified in docker run)
 CMD source devel_isolated/setup.bash && roslaunch abb_robot_bringup_examples ex2_rws_and_egm_6axis_robot.launch robot_ip:=192.168.125.1

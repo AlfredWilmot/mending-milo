@@ -6,7 +6,7 @@
 
 
 # build the Dockerfile in the /noetic-abb-egm folder: 
-docker build --tag ros:abb-egm .
+docker build --tag abb-egm .
 
 # setup a network: 
 docker network create ros-net
@@ -15,39 +15,38 @@ docker network create ros-net
 # Bootstrapping #
 #---------------#
 
-# setup ROS master over the ros-net network:
-docker run -it --rm \
-    --net ros-net \
-    --name master \
-    ros:abb-egm \
-    roscore
-
 # run container while giving it access to ethernet ports/ usb devices
 docker run -it --rm \
+    --network ros-net \
     --name master \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
+    -v "$(pwd)"/shared-volumes/abb_robot_driver:/home/catkin_ws/src/abb_robot_driver \
     -p 6511:6511/udp \
     -p 80:80/tcp \
-    ros:abb-egm \
+    abb-egm \
     bash
 
+# run these in the master container
+catkin_make_isolated \
+    && source devel_isolated/setup.bash && roslaunch abb_robot_bringup_examples ex2_rws_and_egm_6axis_robot.launch robot_ip:=192.168.125.1
 
-
-# with shared volume (for development)
-docker run -it --rm \
-    --net ros-net \
-    --name master \
-    -v `pwd`:/home/catkin_ws \
-    ros:abb-egm \
+# run the joint-trajectory controller rqt plugin
+docker run --rm -it \
+    --network ros-net \
+    --name rqt-joint-traj-controller \
+    --gpus all \
+    -e DISPLAY -e XAUTHORITY -e NVIDIA_DRIVER_CAPABILITIES=all \
+    -e ROS_MASTER_URI="http://172.19.0.2:11311" \
+    -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+    abb-egm \
     bash
+    
+catkin_make_isolated && source devel_isolated/setup.bash && rqt -s joint_trajectory_controller
 
-# run rviz using rocker (requires ROS master in ros:noetic)
-rocker --x11 --nvidia \
-    --net ros-net \
-    --name rviz \
-    --oyr-run-arg "--env ROS_MASTER_URI=http://master:11311" \
-    ros:abb-egm \
-    rviz
+
+
+
+
 
 # inspecting a ros container (example)
 docker exec -it master bash
