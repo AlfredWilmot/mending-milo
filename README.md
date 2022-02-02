@@ -21,6 +21,11 @@ Key things to consider:
 - configure the BIOS to run `"Data Wipe"` (wipe on next boot), and clear the boot sequence in the BIOS so that only the bootable USB is selected.
 - also install `"third-party-software"` when installing Ubunutu via the bootable USB.
 
+*update (02/02/2022)*\
+I am using a Dell Precision-7560, and I needed to disable `hybrid graphics` in the BIOS menu to prevent the laptop display from crashing on boot (Ubuntu 18.04 OS still works when this happens, but and external display is needed to see anything).
+
+
+
 |Minimum installation on host machine
 |-
 Once Ubunut is installed, run the `fresh-install-setup.sh` script as root. This script installs the minimum dependencies (as well as some software that I find generally useful to keep on the host machine)Once this is finished, you're ready to go! 
