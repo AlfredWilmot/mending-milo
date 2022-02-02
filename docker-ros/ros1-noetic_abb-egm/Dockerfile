@@ -21,9 +21,12 @@ RUN apt-get update  && apt-get install -y curl python3-vcstool git \
 RUN mkdir -p /home/catkin_ws/src \
     && vcs import /home/catkin_ws/src --input https://github.com/ros-industrial/abb_robot_driver/raw/master/pkgs.repos 
 
-RUN rosdep update
+# adding example code from Tom
+# COPY shared-volumes/abb_libegm_samples/ /home/catkin_ws/src/
 
-RUN rosdep install --from-paths /home/catkin_ws/src --ignore-src
+# updateing package manifest and installing anything missing packages
+RUN rosdep update \
+    && rosdep install --from-paths /home/catkin_ws/src --ignore-src
 
 # build the catkin_ws (NOTE: https://stackoverflow.com/questions/55941916/unable-to-execute-catkin-commands-using-run-in-dockerfile)
 RUN . /opt/ros/noetic/setup.sh && \
@@ -31,4 +34,6 @@ RUN . /opt/ros/noetic/setup.sh && \
 
 WORKDIR /home/catkin_ws
 
+
+# launch the rws/egm test script with the given robot IP when running this images as a container (unless bash is specified in docker run)
 CMD source devel_isolated/setup.bash && roslaunch abb_robot_bringup_examples ex2_rws_and_egm_6axis_robot.launch robot_ip:=192.168.125.1
