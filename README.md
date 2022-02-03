@@ -22,7 +22,7 @@ Key things to consider:
 - also install `"third-party-software"` when installing Ubunutu via the bootable USB.
 
 *update (02/02/2022)*\
-I am using a Dell Precision-7560, and I needed to disable `hybrid graphics` in the BIOS menu to prevent the laptop display from crashing on boot (Ubuntu 18.04 OS still works when this happens, but and external display is needed to see anything).
+I am using a Dell Precision-7560, and I needed to disable `hybrid graphics` in the BIOS menu to prevent the laptop display from crashing on boot (Ubuntu 18.04 OS still works when this happens, but an external display is needed to see anything).
 
 
 
@@ -34,11 +34,12 @@ Once Ubunut is installed, run the `fresh-install-setup.sh` script as root. This 
 |Additional installation for GUI-enabled docker containers
 |-
 
-Run the `setup-cuda-drivers-ubuntu-18-04.sh` script and do not enroll new key if prompted. This is necessary if you're using an nvidia GPU'
+Run the `setup-cuda-drivers-ubuntu-18-04.sh` script and do not enroll new key if prompted.
+This is necessary if you want to use an Nvidia GPU.
 
 
 ## Misc
 <sub><sup>
-Tired of sitting around mending broken code?
-Have you considered going to the gym and [rebuilding milo](https://www.goodreads.com/en/book/show/54303312-rebuilding-milo) instead? 
+Tired of sitting around mending milo? \
+Why don't you get out there and try [rebuilding milo](https://www.goodreads.com/en/book/show/54303312-rebuilding-milo) instead? 
 </sup></sub>
