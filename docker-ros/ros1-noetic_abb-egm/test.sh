@@ -20,7 +20,7 @@ docker run -it --rm \
     --network ros-net \
     --name master \
     --privileged -v /dev/bus/usb:/dev/bus/usb \
-    -v "$(pwd)"/shared-volumes/abb_robot_driver:/home/catkin_ws/src/abb_robot_driver \
+    -v "$(pwd)"/shared-volumes:/home/catkin_ws/src \
     -p 6511:6511/udp \
     -p 80:80/tcp \
     abb-egm \
@@ -28,7 +28,15 @@ docker run -it --rm \
 
 # run these in the master container
 catkin_make_isolated \
-    && source devel_isolated/setup.bash && roslaunch abb_robot_bringup_examples ex2_rws_and_egm_6axis_robot.launch robot_ip:=192.168.125.1
+&& source devel_isolated/setup.bash && roslaunch abb_robot_bringup_examples ex2_rws_and_egm_6axis_robot.launch robot_ip:=192.168.125.1
+
+
+# enable roscontrol via the switch controller service
+rosservice call /egm/controller_manager/switch_controller "start_controllers: [joint_position_controller]
+stop_controllers: ['']
+strictness: 1
+start_asap: false
+timeout: 0.0"
 
 # run the joint-trajectory controller rqt plugin
 docker run --rm -it \
@@ -38,6 +46,7 @@ docker run --rm -it \
     -e DISPLAY -e XAUTHORITY -e NVIDIA_DRIVER_CAPABILITIES=all \
     -e ROS_MASTER_URI="http://172.19.0.2:11311" \
     -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+    -v "$(pwd)"/shared-volumes:/home/catkin_ws/src \
     abb-egm \
     bash
     

@@ -32,16 +32,31 @@ RUN rosdep update \
 RUN . /opt/ros/noetic/setup.sh && \
     catkin_make_isolated -C /home/catkin_ws
 
+# installing other deps for the abb packages
+RUN sudo apt-get install -y \
+    ros-noetic-industrial-robot-simulator \
+    ros-noetic-trac-ik-kinematics-plugin \
+    ros-noetic-simple-message \
+    ros-noetic-industrial-robot-client
+    
+RUN sudo apt-get install -y \
+    ros-noetic-moveit-fake-controller-manager \
+    ros-noetic-moveit-planners-ompl \
+    ros-noetic-moveit-ros-move-group \
+    ros-noetic-moveit-ros-visualization \
+    ros-noetic-moveit-simple-controller-manager
+
 WORKDIR /home/catkin_ws
 
 # -------------------------- #
 # Installing additional deps #
 
 # run rqt when a rosmaster is active, and select the joint-trajectory-controller plugin to use this
-RUN sudo apt-get install ros-noetic-rqt-joint-trajectory-controller -y
+RUN sudo apt-get install ros-noetic-ros-controllers ros-noetic-joint-trajectory-controller ros-noetic-rqt-joint-trajectory-controller -y
 
-# destroy the configuration files so these can be developed by the host and mounted to the container
-RUN rm -rf /home/catkin_ws/src/abb_robot_driver/*
+
+# destroy the src files so these can be developed by the host and mounted to the container (for development)
+RUN rm -rf /home/catkin_ws/src/*
 
 # launch the rws/egm test script with the given robot IP when running this images as a container (unless bash is specified in docker run)
 CMD source devel_isolated/setup.bash && roslaunch abb_robot_bringup_examples ex2_rws_and_egm_6axis_robot.launch robot_ip:=192.168.125.1

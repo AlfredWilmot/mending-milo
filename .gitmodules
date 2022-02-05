@@ -15,10 +15,21 @@
 [submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_robot_driver"]
 	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_robot_driver
 	url = https://github.com/ros-industrial/abb_robot_driver.git
-[submodule "docker-ros/ros2-dashing_gym-gazebo2/shared-volumes/gym-gazebo2"]
-	path = docker-ros/ros2-dashing_gym-gazebo2/shared-volumes/gym-gazebo2
-	url = https://github.com/AcutronicRobotics/gym-gazebo2.git
-[submodule "docker-ros/ros2-dashing_gym-gazebo2/ros2learn"]
-	path = docker-ros/ros2-dashing_gym-gazebo2/ros2learn
-	url = https://github.com/AcutronicRobotics/ros2learn
-	branch = dashing
+[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_experimental"]
+	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_experimental
+	url = https://github.com/ros-industrial/abb_experimental.git
+[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb"]
+	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb
+	url = https://github.com/ros-industrial/abb.git
+[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_driver"]
+	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_driver
+	url = https://github.com/ros-industrial/abb_driver.git
+[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_egm_rws_managers"]
+	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_egm_rws_managers
+	url = https://github.com/ros-industrial/abb_egm_rws_managers.git
+[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_librws"]
+	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_librws
+	url = https://github.com/ros-industrial/abb_librws.git
+[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_libegm"]
+	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_libegm
+	url = https://github.com/ros-industrial/abb_libegm.git

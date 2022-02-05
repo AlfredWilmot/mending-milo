@@ -3,6 +3,21 @@ Herein are a set of instructions for simplifying the deployment of ROS applicati
 Each section focuses on a particular implementation task, such as enabling GUIs or orchestrating multiple ros containers.
 
 ---
+## Enable any ROS application, on any Linux host machine
+---
+In order to use GUI ROS applications such as rviz via a docker, you will need to enable OpenGL and X Display output for your containers (see reference "<sub><sup>[NVIDIA Docker2 with OpenGL and X Display Output](https://www.pugetsystems.com/labs/hpc/NVIDIA-Docker2-with-OpenGL-and-X-Display-Output-1527/)</sup></sub>" 
+for details). \
+Here are the key points for enabling this feature:
+- you must disable X11 access control so docker containers can access this service as clients, so run this command in your host machine's terminal:
+  - `xhost`
+- 
+
+_references_
+1. <sub><sup>
+[NVIDIA Docker2 with OpenGL and X Display Output](https://www.pugetsystems.com/labs/hpc/NVIDIA-Docker2-with-OpenGL-and-X-Display-Output-1527/)
+</sup></sub>
+
+---
 
 ## Enable GUI-capable Dockerized ROS applications using Rocker 
 ---
