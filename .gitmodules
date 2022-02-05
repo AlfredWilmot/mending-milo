@@ -18,3 +18,7 @@
 [submodule "docker-ros/ros2-dashing_gym-gazebo2/shared-volumes/gym-gazebo2"]
 	path = docker-ros/ros2-dashing_gym-gazebo2/shared-volumes/gym-gazebo2
 	url = https://github.com/AcutronicRobotics/gym-gazebo2.git
+[submodule "docker-ros/ros2-dashing_gym-gazebo2/ros2learn"]
+	path = docker-ros/ros2-dashing_gym-gazebo2/ros2learn
+	url = https://github.com/AcutronicRobotics/ros2learn
+	branch = dashing
