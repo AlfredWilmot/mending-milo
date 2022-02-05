@@ -18,8 +18,7 @@ docker network create ros-net
 
 
 # (slightly modified spin-up instructions from https://github.com/AcutronicRobotics/gym-gazebo2/tree/dashing/docker)
-docker rm gg2 || true \
-    && docker run -it \
+docker run --rm -it \
     --net ros-net \
     --name=gg2 \
     -h gym-gazebo2 -v `pwd`:/tmp/gym-gazebo2 \
