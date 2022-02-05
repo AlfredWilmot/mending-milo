@@ -1,16 +1,56 @@
 services:
-  gzclient:
-    image: gazebo9
-    build: ./builds/visualization-client/
+  gg2-0:
+    image: gg2-toolkit
+    build: .
     environment:
       - DISPLAY=$DISPLAY
       - NVIDIA_VISIBLE_DEVICES=all
       - NVIDIA_DRIVER_CAPABILITIES=all
       - XAUTHORITY=$XAUTHORITY 
       # - GAZEBO_MASTER_URI="http://172.18.0.2:11345"
+      - ROS_DOMAIN_ID=0
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
-    runtime: nvidia
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  gg2-1:
+    image: gg2-toolkit
+    build: .
+    environment:
+      - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - XAUTHORITY=$XAUTHORITY 
+      # - GAZEBO_MASTER_URI="http://172.18.0.2:11345"
+      - ROS_DOMAIN_ID=1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 
 ### give docker containers (clients) access the X11 display on the host machine
 # $: xhost +
+
+
+# launch container with graphical display priviliges 
+# docker run --rm -it \
+#     --name gg2-0 \
+#     --gpus all \
+#     -e DISPLAY -e XAUTHORITY -e NVIDIA_DRIVER_CAPABILITIES=all\
+#     -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
+#     gg2-toolkit bash
+
+# inside container
+# cd examples/MARA && \
+# python3 gg_random.py -g -r -v 0.2
