@@ -65,3 +65,18 @@ source /ros_entrypoint.sh
 # check IP addresses on host computer (includes that of any active docker containers)
 hostname -I
 
+
+
+
+
+# egm commands ros
+
+rostopic echo -c /egm/egm_states
+
+rostopic pub /egm/joint_group_position_controller/command std_msgs/Float64MultiArray "data: [0,20.0,0,0,0,1.0]"
+
+rosservice call /egm/controller_manager/switch_controller "start_controllers: [position_controller]
+stop_controllers: ['']
+strictness: 1
+start_asap: false
+timeout: 0.0"
