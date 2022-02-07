@@ -12,9 +12,6 @@
 [submodule "ros-docker/docker-ros-box"]
 	path = ros-docker/docker-ros-box
 	url = https://github.com/pierrekilly/docker-ros-box.git
-[submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_robot_driver"]
-	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_robot_driver
-	url = https://github.com/AlfredWilmot/abb_robot_driver.git
 [submodule "docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_experimental"]
 	path = docker-ros/ros1-noetic_abb-egm/shared-volumes/abb_experimental
 	url = https://github.com/ros-industrial/abb_experimental.git
