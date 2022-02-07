@@ -1,0 +1,44 @@
+services:
+  master:
+    container_name: master
+    image: abb-egm
+    build: .
+    environment:
+      - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - XAUTHORITY=$XAUTHORITY 
+      # - GAZEBO_MASTER_URI="http://172.18.0.2:11345"
+    privileged: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+      - /dev/bus/usb:/dev/bus/usb
+    ports:
+      - 6511:6511/udp
+      - 80:80/tcp
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  rqt:
+    container_name: rqt
+    image: abb-egm
+    build: .
+    environment:
+      - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - XAUTHORITY=$XAUTHORITY 
+      - GAZEBO_MASTER_URI="http://172.21.0.2:11345"
+    command: rqt -s joint_trajectory_controller
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

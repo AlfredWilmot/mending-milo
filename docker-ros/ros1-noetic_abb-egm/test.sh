@@ -44,7 +44,7 @@ docker run --rm -it \
     --name rqt-joint-traj-controller \
     --gpus all \
     -e DISPLAY -e XAUTHORITY -e NVIDIA_DRIVER_CAPABILITIES=all \
-    -e ROS_MASTER_URI="http://172.19.0.2:11311" \
+    -e ROS_MASTER_URI="http://172.21.0.2:11311" \
     -v /tmp/.X11-unix:/tmp/.X11-unix:ro \
     -v "$(pwd)"/shared-volumes:/home/catkin_ws/src \
     abb-egm \
