@@ -1,12 +1,6 @@
 # Good resource for implementing docker-compose.yml files for ROS applications (http://wiki.ros.org/docker/Tutorials/Compose)
 
 
-networks:
-  ros:
-    driver: bridge
-
-
-
 services:
 
   # redundant, but keeping this "master" for sake of simplicity 
@@ -44,12 +38,16 @@ services:
     restart: always
 
 
+  # An rqt plugin with slide-bars that can jog individual 
+  # robot joints via a "position_controllers/JointTrajectoryController".
   rqt-joint-jogger:
     container_name: rqt-joint-jogger
     image: abb-egm
     build: .
     depends_on:
       - ros-master
+      - abb-driver
+      - enable-egm
     environment:
       - DISPLAY=$DISPLAY
       - NVIDIA_VISIBLE_DEVICES=all
@@ -72,12 +70,14 @@ services:
               capabilities: [gpu]
 
 
+  # Allow the joint controller to control the robot via egm
   enable-egm:
     container_name: enable-egm
     image: abb-egm
     build: .
     depends_on:
       - ros-master
+      - abb-driver
     environment:
       - "ROS_MASTER_URI=http://ros-master:11311"
       - "ROS_HOSTNAME=enable-egm"
@@ -91,4 +91,7 @@ services:
     restart: always
 
 
-
+# The network over which all the ROS applications will communicate with each other
+networks:
+  ros:
+    driver: bridge
