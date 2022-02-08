@@ -1,14 +1,37 @@
+# Good resource for implementing docker-compose.yml files for ROS applications (http://wiki.ros.org/docker/Tutorials/Compose)
+
+
+networks:
+  ros:
+    driver: bridge
+
+
+
 services:
-  master:
-    container_name: master
+
+  # redundant, but keeping this "master" for sake of simplicity 
+  ros-master:
+    container_name: ros-master
+    image: osrf/ros:noetic-desktop
+    command: stdbuf -o L roscore
+    networks:
+      - ros
+    restart: always
+
+  # run "ex2_rws_and_egm_6axis_robot.launch" from the modified "abb_robot_driver" package.
+  # This uses "position_controllers/JointTrajectoryController", defined in "ex2_controllers.yaml"
+  # a URDF of the abb_irb1200 is used from the "abb_experimental" metapackage.
+  # This is done by including "load_irb1200_7_70.launch" from the "abb_irb1200_support" package 
+  # in the "ex2_rws_and_egm_6axis_robot.launch" file while loading the ex2 rws-egm application for 6-axis robots.
+  abb-driver:
+    container_name: abb-driver
     image: abb-egm
     build: .
+    depends_on:
+      - ros-master
     environment:
-      - DISPLAY=$DISPLAY
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - XAUTHORITY=$XAUTHORITY 
-      # - GAZEBO_MASTER_URI="http://172.18.0.2:11345"
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=abb-driver"
     privileged: true
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix:ro
@@ -16,6 +39,30 @@ services:
     ports:
       - 6511:6511/udp
       - 80:80/tcp
+    networks:
+      - ros
+    restart: always
+
+
+  rqt-joint-jogger:
+    container_name: rqt-joint-jogger
+    image: abb-egm
+    build: .
+    depends_on:
+      - ros-master
+    environment:
+      - DISPLAY=$DISPLAY
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - XAUTHORITY=$XAUTHORITY 
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=rqt-joint-jogger"
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:ro
+    command: stdbuf -o L rqt -s joint_trajectory_controller
+    networks:
+      - ros
+    restart: always
     deploy:
       resources:
         reservations:
@@ -24,21 +71,24 @@ services:
               count: 1
               capabilities: [gpu]
 
-  rqt:
-    container_name: rqt
+
+  enable-egm:
+    container_name: enable-egm
     image: abb-egm
     build: .
+    depends_on:
+      - ros-master
     environment:
-      - DISPLAY=$DISPLAY
-      - NVIDIA_VISIBLE_DEVICES=all
-      - NVIDIA_DRIVER_CAPABILITIES=all
-      - XAUTHORITY=$XAUTHORITY 
-      - GAZEBO_MASTER_URI="http://172.21.0.2:11345"
-    command: rqt -s joint_trajectory_controller
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+      - "ROS_MASTER_URI=http://ros-master:11311"
+      - "ROS_HOSTNAME=enable-egm"
+    networks:
+      - ros
+    command: "stdbuf -o L rosservice call /egm/controller_manager/switch_controller \"start_controllers: [position_controller] \
+      stop_controllers: [''] \
+      strictness: 1 \
+      start_asap: false \
+      timeout: 0.0\""
+    restart: always
+
+
+
