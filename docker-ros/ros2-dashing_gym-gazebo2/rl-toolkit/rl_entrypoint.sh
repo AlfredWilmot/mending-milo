@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e 
+# set -e 
 
 # setup ros2 environment
 source "/opt/ros/foxy/setup.bash"
